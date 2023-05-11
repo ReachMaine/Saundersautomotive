@@ -1,0 +1,19 @@
+RewriteEngine On
+
+# redirect to www.
+# RewriteCond %{HTTP_HOST} !^www\.
+# RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [R=301,L]
+
+#redirect all to https:/www. - zig jun18
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} !^www
+RewriteCond %{HTTP_HOST} ^(?:www\.)?(.+)$
+RewriteRule ^ https://www.%1%{REQUEST_URI} [NE,L,R]
+
+<Files 403.shtml>
+order allow,deny
+allow from all
+</Files>
+
+deny from 195.154.236.110
+deny from 195.154.240.246
